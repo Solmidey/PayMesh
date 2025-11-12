@@ -1,0 +1,11 @@
+{ "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["jobId","milestone","artifactCID","artifactHash"],
+  "properties":{
+    "jobId":{"type":"number"},
+    "milestone":{"type":"number"},
+    "artifactCID":{"type":"string"},
+    "artifactHash":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "meta":{"type":"object","properties":{"contentType":{"type":"string"},"schemaURI":{"type":"string"}}}
+  }
+}

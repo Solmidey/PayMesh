@@ -1,0 +1,11 @@
+import express from "express"; import bodyParser from "body-parser";
+const app = express(); app.use(bodyParser.json());
+const jobs = new Map<number, { state:string; cid?:string; hash?:string }>();
+app.post("/quote", (_req,res)=> res.json({ priceWei:"1000000000000000", estSeconds:10, schemaURI:"ipfs://quote.schema.json" }));
+app.post("/start", (req,res)=>{ const { jobId } = req.body; jobs.set(jobId,{state:"running"});
+  setTimeout(()=> jobs.set(jobId,{state:"submitted", cid:"ipfs://FAKE_CID", hash:"0".repeat(64)}), 2000);
+  res.json({ ok:true, heartbeatURI:`/status?jobId=${jobId}` });
+});
+app.post("/submit",(req,res)=>{ const { jobId, cid, sha256 } = req.body; jobs.set(jobId,{state:"submitted", cid, hash:sha256}); res.json({ok:true}); });
+app.get("/status",(req,res)=>{ const id=Number(req.query.jobId); res.json(jobs.get(id) ?? {state:"queued"}); });
+const port = Number(process.env.PORT||7001); app.listen(port,()=>console.log("research-mcp on",port));

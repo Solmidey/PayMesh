@@ -1,0 +1,20 @@
+{
+  "name": "@paymesh/shared",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "echo lint-ok"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^20.11.30"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "dotenv-flow": "^4.1.0"
+  }
+}

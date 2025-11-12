@@ -1,0 +1,10 @@
+import express from "express"; import bodyParser from "body-parser";
+const app = express(); app.use(bodyParser.json());
+const jobs = new Map<number, { state:string; cid?:string; hash?:string }>();
+app.post("/quote", (_req,res)=> res.json({ priceWei:"1000000000000000", estSeconds:15, schemaURI:"ipfs://deliverable.schema.json" }));
+app.post("/start", (req,res)=>{ const { jobId } = req.body; jobs.set(jobId,{state:"running"});
+  setTimeout(()=> jobs.set(jobId,{state:"submitted", cid:"ipfs://FAKE_PNG", hash:"f".repeat(64)}), 2500);
+  res.json({ ok:true, heartbeatURI:`/status?jobId=${jobId}` });
+});
+app.get("/status",(req,res)=>{ const id=Number(req.query.jobId); res.json(jobs.get(id) ?? {state:"queued"}); });
+const port = Number(process.env.PORT||7002); app.listen(port,()=>console.log("framegen-mcp on",port));
