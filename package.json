@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "paymesh",
+  "version": "0.1.0",
+  "packageManager": "pnpm@9",
+  "scripts": {
+    "build": "pnpm -r --if-present run build",
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "test": "pnpm -r --if-present test",
+    "lint": "pnpm -r --if-present lint"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^20.11.30"
+  }
+}

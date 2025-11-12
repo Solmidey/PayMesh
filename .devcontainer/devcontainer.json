@@ -1,0 +1,7 @@
+{
+  "name": "paymesh",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "20" }
+  },
+  "postCreateCommand": "pnpm i && bash -lc 'curl -L https://foundry.paradigm.xyz | bash && source ~/.bashrc && foundryup'"
+}

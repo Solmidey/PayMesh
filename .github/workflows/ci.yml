@@ -1,0 +1,73 @@
+name: CI
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+permissions:
+  contents: read
+
+jobs:
+  typecheck-and-contracts:
+    name: Typecheck & Contracts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: true
+
+      - name: Workspace info
+        run: |
+          node -v
+          pnpm -v
+          pnpm -r list --depth -1 || true
+
+      # Typescript packages (no secrets)
+      - name: Build TypeScript packages
+        run: pnpm -r --if-present --filter "./packages/*" run build
+
+      # Foundry for contracts
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Build Contracts
+        working-directory: packages/contracts
+        run: forge build
+
+      # Only try Next.js build when NOT a fork PR (secrets unavailable on forks)
+      - name: Conditionally Build Web
+        if: ${{ !github.event.pull_request.head.repo.fork }}
+        working-directory: apps/web
+        env:
+          NEXT_PUBLIC_CHAIN_ID: "84532"
+          NEXT_PUBLIC_RPC_URL: "https://sepolia.base.org"
+          NEXT_PUBLIC_REGISTRY: "0x0000000000000000000000000000000000000000"
+          NEXT_PUBLIC_ESCROW: "0x0000000000000000000000000000000000000000"
+          NEXT_PUBLIC_REPUTATION: "0x0000000000000000000000000000000000000000"
+          NEXT_PUBLIC_TW_CLIENT_ID: "placeholder"
+          NEXT_TELEMETRY_DISABLED: "1"
+          CI: "true"
+        run: |
+          pnpm install --filter "." --filter "../.." --prefer-offline
+          pnpm run build || echo "web build is non-blocking"
+
+      - name: Upload Contracts Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: forge-out
+          path: packages/contracts/out
