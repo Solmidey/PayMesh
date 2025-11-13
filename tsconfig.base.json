@@ -3,7 +3,7 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "lib": ["ES2022", "DOM"],
+    "lib": ["ES2022","DOM"],
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -11,8 +11,6 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "paths": {
-      "@paymesh/shared/*": ["packages/shared/src/*"]
-    }
+    "paths": { "@paymesh/shared/*": ["packages/shared/src/*"] }
   }
 }

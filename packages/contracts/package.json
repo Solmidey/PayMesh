@@ -1,0 +1,12 @@
+{
+  "name": "@paymesh/contracts",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "typescript": "^5.9.3"
+  }
+}

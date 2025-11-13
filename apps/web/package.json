@@ -1,0 +1,12 @@
+{
+  "name": "paymesh-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "echo build-web"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "typescript": "^5.9.3"
+  }
+}
