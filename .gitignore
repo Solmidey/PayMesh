@@ -8,3 +8,5 @@ coverage
 artifacts
 cache
 contracts.local.json
+deploy.log
+deploy.log
