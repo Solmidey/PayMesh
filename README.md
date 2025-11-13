@@ -1,4 +1,5 @@
 # PayMesh — Escrow + Reputation for MCP-Style Providers
+<img width="1024" height="1024" alt="ChatGPT Image Nov 13, 2025, 09_21_36 PM" src="https://github.com/user-attachments/assets/f0d20f74-723f-498f-9886-ecfb89dfd0a5" />
 
 Summary: Quote → Fund → Start → Verify {cid,hash} → Release — escrowed settlement and lightweight reputation for MCP-style providers, orchestrated end-to-end.
 
