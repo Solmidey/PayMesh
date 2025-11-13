@@ -11,3 +11,9 @@ contracts.local.json
 deploy.log
 deploy.log
 deploy.log
+
+# local only
+.env
+.env.*
+deploy.log
+contracts.local.json
