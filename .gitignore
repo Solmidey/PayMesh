@@ -17,3 +17,9 @@ deploy.log
 .env.*
 deploy.log
 contracts.local.json
+
+# local only
+.env
+.env.*
+deploy.log
+contracts.local.json
