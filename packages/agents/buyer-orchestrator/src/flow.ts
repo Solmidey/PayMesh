@@ -1,4 +1,4 @@
-import { postJSON, httpGetJSON } from "@paymesh/shared";
+import { postJSON, getJSON } from "@paymesh/shared";
 
 export type Status = { state: "queued"|"running"|"submitted"; cid?: string; hash?: string };
 const sleep = (ms:number)=>new Promise(r=>setTimeout(r,ms));
@@ -18,7 +18,7 @@ export async function runJob(providerUrl: string, spec: unknown): Promise<{ jobI
   let status: Status = { state: "queued" };
   while (status.state !== "submitted") {
     await sleep(1000);
-    status = await httpGetJSON<Status>(`${providerUrl}${start.heartbeatURI}`);
+    status = await getJSON<Status>(`${providerUrl}${start.heartbeatURI}`);
     console.log("STATUS:", status);
   }
 

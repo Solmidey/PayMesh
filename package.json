@@ -8,18 +8,22 @@
     "typecheck": "pnpm -r --if-present run typecheck",
     "test": "pnpm -r --if-present test",
     "lint": "pnpm -r --if-present lint",
-
     "dev:providers": "concurrently -n research,framegen -c auto,auto \"pnpm --filter @paymesh/research-mcp start\" \"pnpm --filter @paymesh/framegen-mcp start\"",
     "dev:orchestrator": "pnpm --filter @paymesh/buyer-orchestrator start",
     "demo:happy": "pnpm dev:providers & sleep 2 && pnpm dev:orchestrator",
-
     "deploy:base-sepolia": "forge script packages/contracts/script/Deploy.s.sol --rpc-url \"$RPC_URL\" --private-key \"$PRIVKEY\" --broadcast",
     "addrs:write": "tsx tools/scripts/write-addresses.ts"
   },
   "devDependencies": {
-    "tsx": "^4.17.0",
+    "@types/body-parser": "^1.19.6",
+    "@types/express": "^5.0.5",
+    "@types/node": "^20.11.30",
     "concurrently": "^9.0.0",
-    "typescript": "^5.6.3",
-    "@types/node": "^20.11.30"
+    "tsx": "^4.17.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2"
   }
 }

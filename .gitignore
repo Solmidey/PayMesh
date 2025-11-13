@@ -23,3 +23,6 @@ contracts.local.json
 .env.*
 deploy.log
 contracts.local.json
+
+# TS build cache
+**/*.tsbuildinfo
