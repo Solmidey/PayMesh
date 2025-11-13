@@ -1,4 +1,4 @@
-# PayMesh — Escrow + Reputation for MCP Providers (NullShot Hacks: Season 0)
+# PayMesh — Escrow + Reputation for MCP Providers
 
 **Track:** MCPs/Agents using other frameworks  
 **Tagline:** On-chain escrow + simple reputation for MCP-style providers, coordinated by a buyer-orchestrator that funds, starts, polls, verifies, and releases — end-to-end in one command.
