@@ -11,6 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "paths": { "@paymesh/shared/*": ["packages/shared/src/*"] }
+    "paths": {
+      "@paymesh/shared/*": ["packages/shared/src/*"]
+    }
   }
 }

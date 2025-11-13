@@ -2,13 +2,15 @@
   "name": "@paymesh/shared",
   "version": "0.1.0",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "echo lint-ok"
   },
   "devDependencies": {
-    "@types/node": "^20.19.25",
-    "typescript": "^5.9.3"
+    "typescript": "^5.6.3",
+    "@types/node": "^20.11.30"
   }
 }

@@ -1,0 +1,28 @@
+
+> @paymesh/buyer-orchestrator@0.1.0 start /workspaces/PayMesh/packages/agents/buyer-orchestrator
+> tsx src/index.ts
+
+QUOTE: {
+  priceWei: '1000000000000000',
+  estSeconds: 8,
+  schemaURI: 'ipfs://quote.schema.json'
+}
+FUNDED jobId 190710072 (stub funding)
+START: { ok: true, heartbeatURI: '/status?jobId=190710072' }
+STATUS: { state: 'running' }
+STATUS: {
+  state: 'submitted',
+  cid: 'ipfs://FAKE_7e92ac2e41e1372424e367595192bda467cd7d2120331c',
+  hash: '7e92ac2e41e1372424e367595192bda467cd7d2120331c64adf63020324f2f40'
+}
+SUBMITTED: {
+  state: 'submitted',
+  cid: 'ipfs://FAKE_7e92ac2e41e1372424e367595192bda467cd7d2120331c',
+  hash: '7e92ac2e41e1372424e367595192bda467cd7d2120331c64adf63020324f2f40'
+}
+RELEASE (stub) + REPUTATION.bump (stub)
+DONE jobId 190710072 {
+  state: 'submitted',
+  cid: 'ipfs://FAKE_7e92ac2e41e1372424e367595192bda467cd7d2120331c',
+  hash: '7e92ac2e41e1372424e367595192bda467cd7d2120331c64adf63020324f2f40'
+}

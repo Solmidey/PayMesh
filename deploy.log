@@ -1,0 +1,29 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  {"registry":"0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9","escrow":"0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9","reputation":"0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"}
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 31337
+
+Estimated gas price: 1.751114235 gwei
+
+Estimated total gas used for script: 260730
+
+Estimated amount required: 0.00045656801449155 ETH
+
+==========================
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /workspaces/PayMesh/packages/contracts/broadcast/Deploy.s.sol/31337/run-latest.json
+
+Sensitive values saved to: /workspaces/PayMesh/packages/contracts/cache/Deploy.s.sol/31337/run-latest.json
+
