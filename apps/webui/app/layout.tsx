@@ -1,4 +1,5 @@
-import Header from "@/components/Header";\nimport "./globals.css";
+import Header from "@/components/Header";
+import "./globals.css";
 import { ReactNode } from "react";
 
 export const metadata = {
