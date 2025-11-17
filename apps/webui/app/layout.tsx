@@ -1,4 +1,17 @@
-export const metadata = { title: "PayMesh Web UI" };
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en"><body>{children}</body></html>;
+import "./globals.css";
+import { ReactNode } from "react";
+
+export const metadata = {
+  title: "PayMesh Web UI",
+  description: "Test providers and visualize agent flow with style"
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="min-h-screen antialiased">
+        {children}
+      </body>
+    </html>
+  );
 }

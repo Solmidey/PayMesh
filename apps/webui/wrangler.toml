@@ -1,0 +1,6 @@
+name = "paymesh-webui"
+compatibility_date = "2024-12-01"
+
+[vars]
+RESEARCH_URL = "https://potential-fiesta-r9xxr77jww5h5xqp-7001.app.github.dev"
+FRAMEGEN_URL = "https://potential-fiesta-r9xxr77jww5h5xqp-7002.app.github.dev"

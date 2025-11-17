@@ -26,3 +26,18 @@ contracts.local.json
 
 # TS build cache
 **/*.tsbuildinfo
+# build and local runtime
+.vercel/
+.open-next/
+.next/
+dist/
+out/
+node_modules/
+.pnpm-store/
+.wrangler/
+.DS_Store
+
+# editor / logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
