@@ -1,41 +1,55 @@
-export const runtime = "nodejs";
+export const runtime = 'edge';
 
-const baseFor = (p: string) => (p === "7002" ? "http://127.0.0.1:7002" : "http://127.0.0.1:7001");
+function baseFor(provider: string | null) {
+  return provider === '7002'
+    ? 'http://127.0.0.1:7002/mcp'
+    : 'http://127.0.0.1:7001/mcp';
+}
 
 export async function POST(req: Request) {
   const url = new URL(req.url);
-  const provider = url.searchParams.get("provider") ?? "7001";
-  const action = url.searchParams.get("action") ?? "quote";
+  const provider = url.searchParams.get('provider');
+  const action = url.searchParams.get('action'); // "quote" | "start"
   const base = baseFor(provider);
 
-  if (action === "quote" || action === "start") {
+  if (action === 'quote' || action === 'start') {
     const body = await req.text();
-    return fetch(\`\${base}/\${action}\`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body
+    const r = await fetch(`${base}/${action}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body,
+    });
+    const txt = await r.text();
+    return new Response(txt, {
+      status: r.status,
+      headers: { 'content-type': 'application/json' },
     });
   }
 
-  if (action === "status") {
-    const { jobId } = await req.json();
-    if (!jobId) return new Response(JSON.stringify({ error: "jobId required" }), { status: 400 });
-    return fetch(\`\${base}/status?jobId=\${encodeURIComponent(jobId)}\`);
-  }
-
-  return new Response(JSON.stringify({ error: "unknown action" }), { status: 400 });
+  return new Response(JSON.stringify({ error: 'unsupported action' }), {
+    status: 400,
+    headers: { 'content-type': 'application/json' },
+  });
 }
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
-  const provider = url.searchParams.get("provider") ?? "7001";
-  const action = url.searchParams.get("action");
-  const jobId = url.searchParams.get("jobId");
+  const provider = url.searchParams.get('provider');
+  const action = url.searchParams.get('action'); // "status"
+  const jobId = url.searchParams.get('jobId');
   const base = baseFor(provider);
 
-  if (action === "status" && jobId) {
-    return fetch(\`\${base}/status?jobId=\${encodeURIComponent(jobId)}\`);
+  if (action === 'status' && jobId) {
+    const r = await fetch(`${base}/status/${jobId}`);
+    const txt = await r.text();
+    return new Response(txt, {
+      status: r.status,
+      headers: { 'content-type': 'application/json' },
+    });
   }
 
-  return new Response(JSON.stringify({ error: "unsupported GET" }), { status: 400 });
+  return new Response(JSON.stringify({ error: 'unsupported action' }), {
+    status: 400,
+    headers: { 'content-type': 'application/json' },
+  });
 }
