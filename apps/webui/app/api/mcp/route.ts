@@ -1,69 +1,41 @@
-export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
+export const runtime = "nodejs";
 
-type Method = 'GET' | 'POST';
+const baseFor = (p: string) => (p === "7002" ? "http://127.0.0.1:7002" : "http://127.0.0.1:7001");
 
-function missing(name: string) {
-  return new Response(JSON.stringify({ error: `Missing env: ${name}` }), { status: 500, headers: { 'content-type': 'application/json' }});
-}
-
-/**
- * Universal proxy for MCP providers from the UI:
- *   GET  /api/mcp?provider=research&path=quote
- *   POST /api/mcp?provider=framegen&path=start  (body forwarded)
- *
- * Required Cloudflare Pages env vars:
- *   RESEARCH_URL, FRAMEGEN_URL
- */
-async function handle(method: Method, req: Request) {
+export async function POST(req: Request) {
   const url = new URL(req.url);
-  const provider = url.searchParams.get('provider') || 'research';
-  const path = (url.searchParams.get('path') || '').replace(/^\/+/, '');
+  const provider = url.searchParams.get("provider") ?? "7001";
+  const action = url.searchParams.get("action") ?? "quote";
+  const base = baseFor(provider);
 
-  const RESEARCH_URL = process.env.RESEARCH_URL;
-  const FRAMEGEN_URL = process.env.FRAMEGEN_URL;
-
-  if (!RESEARCH_URL) return missing('RESEARCH_URL');
-  if (!FRAMEGEN_URL) return missing('FRAMEGEN_URL');
-
-  const base =
-    provider === 'framegen' ? FRAMEGEN_URL :
-    provider === 'research' ? RESEARCH_URL :
-    null;
-
-  if (!base) {
-    return new Response(JSON.stringify({ error: `Unknown provider: ${provider}` }), {
-      status: 400, headers: { 'content-type': 'application/json' }
+  if (action === "quote" || action === "start") {
+    const body = await req.text();
+    return fetch(\`\${base}/\${action}\`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body
     });
   }
 
-  if (!path) {
-    return new Response(JSON.stringify({ error: 'Missing ?path=' }), {
-      status: 400, headers: { 'content-type': 'application/json' }
-    });
+  if (action === "status") {
+    const { jobId } = await req.json();
+    if (!jobId) return new Response(JSON.stringify({ error: "jobId required" }), { status: 400 });
+    return fetch(\`\${base}/status?jobId=\${encodeURIComponent(jobId)}\`);
   }
 
-  const forwardUrl = `${base.replace(/\/+$/, '')}/${path}`;
-  const headers = new Headers({ 'content-type': 'application/json' });
-
-  const init: RequestInit = { method, headers };
-  if (method === 'POST') {
-    // forward JSON body if present
-    const text = await req.text();
-    if (text) init.body = text;
-  }
-
-  try {
-    const res = await fetch(forwardUrl, init);
-    const ct = res.headers.get('content-type') || '';
-    const body = await res.text();
-    return new Response(body, { status: res.status, headers: { 'content-type': ct || 'application/json' } });
-  } catch (e: any) {
-    return new Response(JSON.stringify({ error: 'Upstream fetch failed', detail: String(e) }), {
-      status: 502, headers: { 'content-type': 'application/json' }
-    });
-  }
+  return new Response(JSON.stringify({ error: "unknown action" }), { status: 400 });
 }
 
-export async function GET(req: Request)  { return handle('GET',  req); }
-export async function POST(req: Request) { return handle('POST', req); }
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+  const provider = url.searchParams.get("provider") ?? "7001";
+  const action = url.searchParams.get("action");
+  const jobId = url.searchParams.get("jobId");
+  const base = baseFor(provider);
+
+  if (action === "status" && jobId) {
+    return fetch(\`\${base}/status?jobId=\${encodeURIComponent(jobId)}\`);
+  }
+
+  return new Response(JSON.stringify({ error: "unsupported GET" }), { status: 400 });
+}
