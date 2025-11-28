@@ -140,6 +140,37 @@ importers:
         specifier: ^4.47.0
         version: 4.47.0
 
+  apps/cloudflare-worker:
+    dependencies:
+      '@paymesh/buyer-orchestrator':
+        specifier: workspace:*
+        version: link:../packages/agents/buyer-orchestrator
+      '@paymesh/framegen-mcp':
+        specifier: workspace:*
+        version: link:../packages/mcp-providers/framegen-mcp
+      '@paymesh/research-mcp':
+        specifier: workspace:*
+        version: link:../packages/mcp-providers/research-mcp
+      '@paymesh/shared':
+        specifier: workspace:*
+        version: link:../packages/shared
+      body-parser:
+        specifier: ^1.20.3
+        version: 1.20.3
+      express:
+        specifier: ^4.21.1
+        version: 4.21.2
+    devDependencies:
+      '@types/body-parser':
+        specifier: ^1.19.6
+        version: 1.19.6
+      '@types/express':
+        specifier: ^5.0.5
+        version: 5.0.5
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/agents/buyer-orchestrator:
     dependencies:
       '@paymesh/shared':
@@ -164,8 +195,6 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
-
-  packages/contracts/lib/forge-std: {}
 
   packages/mcp-providers/framegen-mcp:
     dependencies:

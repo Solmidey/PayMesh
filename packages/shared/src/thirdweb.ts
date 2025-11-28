@@ -12,6 +12,13 @@
 
 import { createHash } from "crypto";
 
+function env(key: string): string | undefined {
+  if (typeof process !== "undefined" && process.env && key in process.env) {
+    return process.env[key];
+  }
+  return undefined;
+}
+
 function fakeCidFor(obj: unknown): string {
   const h = createHash("sha256").update(JSON.stringify(obj)).digest("hex").slice(0, 46);
   // not a real CID, but good enough for demos & CI
@@ -19,7 +26,7 @@ function fakeCidFor(obj: unknown): string {
 }
 
 export async function putJSON(obj: unknown): Promise<string> {
-  if (process.env.THIRDWEB_CLIENT_ID || process.env.THIRDWEB_SECRET_KEY) {
+  if (env("THIRDWEB_CLIENT_ID") || env("THIRDWEB_SECRET_KEY")) {
     // TODO: wire real thirdweb upload here.
     // Example pseudo-code (replace with real SDK calls):
     // const client = createThirdwebClient({ clientId: process.env.THIRDWEB_CLIENT_ID! });

@@ -1,36 +1,5 @@
-import express from "express";
-import bodyParser from "body-parser";
-import { putJSON } from "@paymesh/shared";
-import { createHash } from "crypto";
-
-type Job = { state: "queued"|"running"|"submitted"; cid?: string; hash?: string };
-
-const app = express();
-app.use(bodyParser.json());
-const jobs = new Map<number, Job>();
-
-app.post("/quote", (_req, res) => {
-  res.json({ priceWei: "1000000000000000", estSeconds: 10, schemaURI: "ipfs://deliverable.schema.json" });
-});
-
-app.post("/start", async (req, res) => {
-  const { jobId, spec } = req.body as { jobId: number; spec: any };
-  jobs.set(jobId, { state: "running" });
-
-  setTimeout(async () => {
-    const content = { type: "image", prompt: spec?.headline ?? "Hello", uri: "ipfs://FAKE_PNG", note: "Replace with real image CID later" };
-    const cid = await putJSON(content);
-    const hash = createHash("sha256").update(JSON.stringify(content)).digest("hex");
-    jobs.set(jobId, { state: "submitted", cid, hash });
-  }, 2500);
-
-  res.json({ ok: true, heartbeatURI: `/status?jobId=${jobId}` });
-});
-
-app.get("/status", (req, res) => {
-  const id = Number(req.query.jobId);
-  res.json(jobs.get(id) ?? { state: "queued" });
-});
+import { createFramegenApp } from "./app";
 
 const port = Number(process.env.PORT || 7002);
+const app = createFramegenApp();
 app.listen(port, () => console.log("framegen-mcp on", port));

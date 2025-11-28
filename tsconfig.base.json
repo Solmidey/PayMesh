@@ -12,7 +12,11 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@paymesh/shared/*": ["packages/shared/src/*"]
+      "@paymesh/shared": ["packages/shared/src/index.ts"],
+      "@paymesh/shared/*": ["packages/shared/src/*"],
+      "@paymesh/research-mcp": ["packages/mcp-providers/research-mcp/src/index.ts"],
+      "@paymesh/framegen-mcp": ["packages/mcp-providers/framegen-mcp/src/index.ts"],
+      "@paymesh/buyer-orchestrator": ["packages/agents/buyer-orchestrator/src/index.ts"]
     }
   }
 }

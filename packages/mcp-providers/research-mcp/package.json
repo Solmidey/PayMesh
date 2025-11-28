@@ -2,11 +2,14 @@
   "name": "@paymesh/research-mcp",
   "version": "0.1.0",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "start": "tsx src/server.ts",
-    "lint": "echo lint-ok"
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.6",
