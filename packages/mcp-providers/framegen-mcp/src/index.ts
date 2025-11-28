@@ -1,1 +1,1 @@
-console.log("framegen-mcp ready");
+export { createFramegenApp } from "./app";

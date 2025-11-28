@@ -12,7 +12,9 @@
     "dev:orchestrator": "pnpm --filter @paymesh/buyer-orchestrator start",
     "demo:happy": "pnpm dev:providers & sleep 2 && pnpm dev:orchestrator",
     "deploy:base-sepolia": "forge script packages/contracts/script/Deploy.s.sol --rpc-url \"$RPC_URL\" --private-key \"$PRIVKEY\" --broadcast",
-    "addrs:write": "tsx tools/scripts/write-addresses.ts"
+    "addrs:write": "tsx tools/scripts/write-addresses.ts",
+    "dev:cf": "wrangler dev",
+    "deploy:cf": "wrangler deploy"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.6",

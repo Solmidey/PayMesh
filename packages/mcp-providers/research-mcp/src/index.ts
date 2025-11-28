@@ -1,1 +1,1 @@
-console.log("research-mcp ready");
+export { createResearchApp } from "./app";

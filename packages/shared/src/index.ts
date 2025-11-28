@@ -6,6 +6,11 @@
 export * as MCP from "./mcp";
 export * as Storage from "./thirdweb";
 export * as Hashing from "./hashing";
+export * as Validation from "./validation";
+export * as Logging from "./logging";
+export * as Errors from "./errors";
+export * as Types from "./types";
+export * as ExpressHelpers from "./express";
 
 /* Back-compat aliases used by providers */
 export { postJSON, getJSON } from "./mcp";
