@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev -p 5173",
-    "build": "echo skipping webui build for worker-focused CI",
+    "build": "if [ \"$PAYMESH_WORKER_ONLY\" = \"1\" ]; then echo 'skipping webui build for worker-only CI'; else next build; fi",
     "start": "next start -p 5173",
     "lint": "echo skipping webui lint",
     "cf:build": "opennext build",
